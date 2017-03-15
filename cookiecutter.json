@@ -1,0 +1,9 @@
+{
+    "project_name": "RAsciiDoc_Analysis",
+	"first_name": "Fooey",
+	"last_name": "Barrrrr",
+	"email": "foobar@foobar.com",
+	"_copy_without_render": [
+        "bin/clean_up_analysis.zsh"
+    ]
+}

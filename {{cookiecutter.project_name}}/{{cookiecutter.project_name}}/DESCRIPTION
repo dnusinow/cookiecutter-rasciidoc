@@ -1,0 +1,10 @@
+Package: {{cookiecutter.project_name}}
+Title: {{cookiecutter.project_name}} Utility Library
+Version: 0.0.0.1
+Authors@R: person("{{cookiecutter.first_name}}", "{{cookiecutter.last_name}}", email = "{{cookiecutter.email}}", role = c("aut", "cre"))
+Description: Utility Library and Data For {{cookiecutter.project_name}} Project
+Depends:
+    R (>= 3.2.4)
+License: All rights reserved
+LazyData: true
+RoxygenNote: 5.0.1

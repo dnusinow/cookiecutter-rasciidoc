@@ -1,0 +1,25 @@
+= {{cookiecutter.project_name}}
+:toclevels: 4
+
+//begin.rcode global-options, echo=FALSE, cache=FALSE
+opts_chunk$set(echo = FALSE, cache = TRUE, dev = "png")
+//end.rcode
+
+//begin.rcode external-code, cache=FALSE, warning=FALSE, message=FALSE
+read_chunk("{{cookiecutter.project_name}}.R")
+//end.rcode
+
+//begin.rcode load-libraries, cache = FALSE
+//end.rcode
+
+//begin.rcode init-no-cache, cache = FALSE
+//end.rcode
+
+//begin.rcode metadata
+//end.rcode
+
+//begin.rcode infrastructure, dependson = "metadata"
+//end.rcode
+
+//begin.rcode cleanup-no-cache
+//end.rcode
