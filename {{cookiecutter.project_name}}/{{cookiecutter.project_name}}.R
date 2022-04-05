@@ -6,4 +6,6 @@
 
 #### @knitr infrastructure
 
+#### @knitr data
+
 #### @knitr cleanup-no-cache

@@ -1,24 +1,33 @@
+# RASCIIDOC = $(addsuffix .Rasciidoc,${RASCIIDOC_ROOTS})
+# ASCIIDOC = $(addsuffix .asciidoc,${RASCIIDOC_ROOTS}) 
+# INDIVHTML = $(addsuffix .html,${RASCIIDOC_ROOTS})
+
 .PRECIOUS: %.asciidoc sqlite/%.data sqlite/%.stamp sqlite/%.sql
 
-.PHONY: help
+.PHONY: help clean cacheclean
 
 help:
 	@grep -E '^[a-zA-Z_-%]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 
 # Knitr
+# all: ${INDIVHTML} ## Create all HTML files
 
 clean: ## Delete the individual asciidoc and html files
-	rm -f *.asciidoc *.html
+	ls *.asciidoc *.html | sed /docinfo.html/d | xargs rm -f
+
+cacheclean:
+	rm -f cache/$(FILE)*
+	touch $(FILE)
 
 rlibs:
 	grep -Fh library *R | sed -r -e 's/.*library\("?//' -e 's/".*//' | sort | uniq
 
-%.html: %.asciidoc html.conf ## Build the html file for a given filename
-	asciidoc -b xhtml11 -f html.conf -a data-uri -a icons -a toc2 -a toclevels=4 -d article -o $@ $<
+%.html: %.asciidoc docinfo.html ## Build the html file for a given filename
+	asciidoctor --doctype=article -a data-uri -a 'icons=font' -a 'toc=left' -a 'toclevels=4' -a 'source-highlighter=pygments' -a 'docinfo=shared' --out-file=$@  $<
 
 %.asciidoc: %.Rasciidoc %.R ## Build the asciidoc file for a given filename
-	R -e 'library(knitr); opts_chunk$$set(cache.path = "cache/$(basename $(@F))_", fig.path = "figure/$(basename $(@F))_") ; knit("$<", "$@", tangle = FALSE)'
+	R -e 'library(knitr); opts_chunk$$set(cache.path = "cache/$(basename $(@F))_", fig.path = "figure/$(basename $(@F))_") ; opts_knit$$set(verbose = FALSE) ; knit("$<", "$@", tangle = FALSE)'
 
 # Data to SQLite
 sqlite/%.sqlite3: sqlite/%.sql sqlite/%.data
@@ -41,4 +50,3 @@ sqlite/%.data: data/%.tsv
 
 sqlite/%.data: data/%.csv
 	sed 1d $< > $@
-

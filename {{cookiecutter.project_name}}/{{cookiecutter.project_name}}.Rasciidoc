@@ -2,7 +2,9 @@
 :toclevels: 4
 
 //begin.rcode global-options, echo=FALSE, cache=FALSE
-opts_chunk$set(echo = FALSE, cache = TRUE, dev = "png")
+opts_chunk$set(echo = FALSE, cache = TRUE, dev = "png", autodep = TRUE,
+               fig.width = 11.25, fig.height = 5.97647,
+               dpi = 96, fig.retina = 2)
 //end.rcode
 
 //begin.rcode external-code, cache=FALSE, warning=FALSE, message=FALSE
@@ -18,7 +20,10 @@ read_chunk("{{cookiecutter.project_name}}.R")
 //begin.rcode metadata
 //end.rcode
 
-//begin.rcode infrastructure, dependson = "metadata"
+//begin.rcode infrastructure
+//end.rcode
+
+//begin.rcode data, cache = TRUE
 //end.rcode
 
 //begin.rcode cleanup-no-cache
